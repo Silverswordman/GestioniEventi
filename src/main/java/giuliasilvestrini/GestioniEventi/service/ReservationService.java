@@ -3,6 +3,7 @@ package giuliasilvestrini.GestioniEventi.service;
 import giuliasilvestrini.GestioniEventi.entities.Event;
 import giuliasilvestrini.GestioniEventi.entities.Reservation;
 import giuliasilvestrini.GestioniEventi.entities.User;
+import giuliasilvestrini.GestioniEventi.exceptions.BadRequestException;
 import giuliasilvestrini.GestioniEventi.exceptions.NotFoundException;
 import giuliasilvestrini.GestioniEventi.payloads.ReservationDTO;
 import giuliasilvestrini.GestioniEventi.repositories.ReservationDAO;
@@ -32,6 +33,10 @@ public class ReservationService {
         Event event = eventService.findByTitleAndDate(body.getEventTitle(), body.getEventDate());
         if (event == null) {
             throw new NotFoundException("Evento non trovato  " + body.getEventTitle());
+        }
+        if (event.getReservations().size() >= event.getSeats()) {
+
+            throw new BadRequestException("Numero massimo di prenotazioni raggiunto per questo evento");
         }
 
 
