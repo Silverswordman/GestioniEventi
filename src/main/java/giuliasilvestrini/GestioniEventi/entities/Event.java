@@ -1,7 +1,6 @@
-package giuliasilvestrini.GestioniEventi.entities.enums;
+package giuliasilvestrini.GestioniEventi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import giuliasilvestrini.GestioniEventi.entities.Reservation;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,5 @@
 package giuliasilvestrini.GestioniEventi.entities;
 
-import giuliasilvestrini.GestioniEventi.entities.User;
-import giuliasilvestrini.GestioniEventi.entities.enums.Event;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
