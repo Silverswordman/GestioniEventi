@@ -25,18 +25,15 @@ public class AuthService {
 
 
     public User save(NewUserDTO body) {
-
         userDAO.findByEmail(body.email()).ifPresent(user -> {
             throw new BadRequestException("L'email " + user.getEmail() + " è già in uso!");
         });
-
         User newUser = new User();
         newUser.setUsername(body.username());
         newUser.setFullname(body.fullname());
         newUser.setEmail(body.email());
-//        newUser.setPassword(body.password());
         newUser.setPassword(bcrypt.encode(body.password()));
-        newUser.setRole(Role.GUEST);
+        newUser.setRole(Role.USER);
         return userDAO.save(newUser);
     }
 
