@@ -23,7 +23,7 @@ public class UserController {
 
 
     @GetMapping("")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGER')")
 // solo admin può vedere tutti gli utenti
     public Page<User> getUsers(@RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size) {
@@ -49,15 +49,15 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public User editUser(@PathVariable UUID id,@RequestBody User modifiedpayload) {
+    @PreAuthorize("hasAuthority('MANAGER')")
+    public User editUser(@PathVariable UUID id, @RequestBody User modifiedpayload) {
         return userService.findByIdAndUpdate(id, modifiedpayload);
     }
 
-    // per sviluppo
+    // per sviluppo se un manager vuole modificare un altro user e renderlo manager
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGER')")
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getUserByIdAndDelete(@PathVariable UUID id) {
