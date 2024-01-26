@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/events")
 public class EventController {
@@ -27,8 +29,21 @@ public class EventController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('MANAGER')")
     public Event saveEvent(@RequestBody NewEventDTO body) {
         return eventService.save(body);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('MANAGER')")
+    public Event getEventandUpdate(@PathVariable UUID id, @RequestBody Event modifiedEvent) {
+        return eventService.findByIdAndUpdate(id, modifiedEvent);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('MANAGER')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void getEventByIdAndDelete(@PathVariable UUID id) {
+        eventService.findByIdAndDelete(id);
     }
 }
